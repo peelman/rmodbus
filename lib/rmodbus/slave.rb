@@ -267,39 +267,39 @@ module ModBus
       when 1,2
         bc = request.getword(3)/8 + 1
         if data.size != bc
-          msg = "Byte count is mismatch (expected #{bc}, got #{data.size} bytes)"
+          msg = "Byte count is mismatched (expected #{bc}, got #{data.size} bytes)"
         end
       when 3,4
         rc = request.getword(3)
         if data.size/2 != rc
-          msg = "Register count is mismatch (expected #{rc}, got #{data.size/2} regs)"
+          msg = "Register count is mismatched (expected #{rc}, got #{data.size/2} regs)"
         end
       when 5,6
         exp_addr = request.getword(1)
         got_addr = response.getword(1)
         if exp_addr != got_addr
-          msg = "Address is mismatch (expected #{exp_addr}, got #{got_addr})"
+          msg = "Address is mismatched (expected #{exp_addr}, got #{got_addr})"
         end
 
         exp_val = request.getword(3)
         got_val = response.getword(3)
         if exp_val != got_val
-          msg = "Value is mismatch (expected 0x#{exp_val.to_s(16)}, got 0x#{got_val.to_s(16)})"
+          msg = "Value mismatch (expected 0x#{exp_val.to_s(16)}, got 0x#{got_val.to_s(16)})"
         end
       when 15,16
         exp_addr = request.getword(1)
         got_addr = response.getword(1)
         if exp_addr != got_addr
-          msg = "Address is mismatch (expected #{exp_addr}, got #{got_addr})"
+          msg = "Address is mismatched (expected #{exp_addr}, got #{got_addr})"
         end
 
         exp_quant = request.getword(3)
         got_quant = response.getword(3)
         if exp_quant != got_quant
-          msg = "Quantity is mismatch (expected #{exp_quant}, got #{got_quant})"
+          msg = "Quantity is mismatched (expected #{exp_quant}, got #{got_quant})"
         end
       else
-        warn "Fuiction (#{read_func}) is not supported raising response mismatch"
+        warn "Function (#{read_func}) is not supported raising response mismatch"
       end
 
       raise ResponseMismatch.new(msg, request, response) if msg
